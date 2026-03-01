@@ -107,7 +107,7 @@ async function generate(){
     payload.composition=document.getElementById("composition").value||"auto";
   }
 
-  const res=await fetch("http://127.0.0.1:5000/generate",{
+  const res=await fetch("https://lumo-ai-orhd.onrender.com",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
@@ -127,4 +127,5 @@ function copyOutput(){
 </script>
 
 </body>
+
 </html>
