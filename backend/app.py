@@ -21,7 +21,7 @@ def generate():
     style = data.get("style", "auto")
     composition = data.get("composition", "auto")
 
-    # ---------- PROMPT BUILD ----------
+    # PROMPBUIL
     if mode == "pro":
 
         if fmt == "json":
@@ -87,17 +87,17 @@ Create a detailed cinematic AI image prompt from:
 Return concise English prompt.
 """
 
-    # ---------- MODEL CALL ----------
+    # MODLCALL
     result = llama_prompt(instruction)
 
     if "choices" not in result:
         result = groq_prompt(instruction)
 
-    # ---------- OUTPUT ----------
+    # OP
     if "choices" in result:
         text = result["choices"][0]["message"]["content"]
 
-        # pretty JSON if requested
+        #JSON 
         if mode == "pro" and fmt == "json":
             import json as pyjson
             try:
@@ -115,3 +115,4 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
