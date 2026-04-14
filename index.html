@@ -2,130 +2,308 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lumo</title>
+<title>Lumo AI</title>
 
 <style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Inter, Arial;
+}
+
 body{
-  font-family:Arial;
-  background:#0f172a;
+  background:#020617;
   color:white;
   display:flex;
-  justify-content:center;
-  padding:40px;
 }
-.container{
-  width:600px;
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;
+  height:100vh;
+  background:#020617;
+  border-right:1px solid #1e293b;
+  padding:20px;
 }
-textarea,select,input,button{
-  width:100%;
-  margin-top:10px;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-}
-button{
-  background:#38bdf8;
+
+/* LOGO */
+.logo{
+  font-size:22px;
   font-weight:bold;
+  margin-bottom:30px;
+  letter-spacing:1px;
+}
+
+/* MENU */
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+.menu div{
+  opacity:0.7;
   cursor:pointer;
 }
-#outputBox{
+.menu div:hover{
+  opacity:1;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:30px;
+}
+
+/* TOP BAR */
+.topbar{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:20px;
+}
+
+/* USER ICON */
+.profile{
+  background:#0f172a;
+  padding:8px 14px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* INPUT BOX */
+.inputBox{
+  background:#0f172a;
+  padding:20px;
+  border-radius:16px;
+  margin-bottom:20px;
+}
+
+/* TEXTAREA */
+textarea{
+  width:100%;
+  background:transparent;
+  border:none;
+  color:white;
+  font-size:16px;
+  outline:none;
+  resize:none;
+  min-height:120px;
+}
+
+/* MODE */
+.modeToggle{
+  margin-top:15px;
+}
+select{
   background:#020617;
-  padding:12px;
-  margin-top:12px;
-  border-radius:8px;
-  max-height:260px;
-  overflow:auto;
-  white-space:pre-wrap;
+  color:white;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #1e293b;
+  width:100%;
 }
-.copyBtn{
-  margin-top:6px;
-  background:#22c55e;
-}
+
+/* PRO FIELDS */
 .pro{
   display:none;
+  margin-top:15px;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+/* PRESET DROPDOWNS */
+.pro select{
+  width:100%;
+}
+
+/* BUTTON */
+button{
+  margin-top:15px;
+  background:#38bdf8;
+  border:none;
+  padding:12px;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+}
+button:hover{
+  transform:scale(1.03);
+}
+
+/* OUTPUT */
+.output{
+  margin-top:20px;
+  background:#0f172a;
+  padding:15px;
+  border-radius:12px;
+  max-height:250px;
+  overflow:auto;
+}
+
+/* COPY */
+.copyBtn{
+  background:#22c55e;
+}
+
+/* LOADER */
+.loader{
+  display:none;
+  margin-top:10px;
+  text-align:center;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<!-- SIDEBAR -->
+<div class="sidebar">
 
-<h2>💡 Lumo</h2>
+  <!-- CLEAN LOGO -->
+  <div class="logo">LUMO.AI</div>
 
-<textarea id="idea" placeholder="Enter idea"></textarea>
+  <div class="menu">
+    <div>💡 New Chat</div>
+    <div>🔍 Search</div>
+    <div>📜 History</div>
+  </div>
 
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="profile">👤 User</div>
+</div>
+
+<!-- INPUT -->
+<div class="inputBox">
+
+<textarea id="idea" placeholder="Enter your idea..."></textarea>
+
+<div class="modeToggle">
 <select id="mode" onchange="toggleMode()">
   <option value="beginner">Beginner</option>
   <option value="pro">Pro</option>
 </select>
+</div>
 
+<!-- PRO PRESETS -->
 <div id="proFields" class="pro">
-  <input id="angle" placeholder="Angle (optional)">
-  <input id="lighting" placeholder="Lighting (optional)">
-  <input id="lens" placeholder="Lens (optional)">
-  <input id="style" placeholder="Style (optional)">
-  <input id="composition" placeholder="Composition (optional)">
 
-  <select id="format">
-    <option value="text">Text Prompt</option>
-    <option value="json">JSON Prompt</option>
-  </select>
+<select id="angle">
+  <option value="auto">Angle (Auto)</option>
+  <option>Low Angle</option>
+  <option>High Angle</option>
+  <option>Wide Shot</option>
+</select>
+
+<select id="lighting">
+  <option value="auto">Lighting (Auto)</option>
+  <option>Soft Light</option>
+  <option>Cinematic</option>
+  <option>Neon</option>
+</select>
+
+<select id="lens">
+  <option value="auto">Lens (Auto)</option>
+  <option>35mm</option>
+  <option>50mm</option>
+  <option>85mm</option>
+</select>
+
+<select id="style">
+  <option value="auto">Style (Auto)</option>
+  <option>Realistic</option>
+  <option>Anime</option>
+  <option>Cinematic</option>
+</select>
+
+<select id="composition">
+  <option value="auto">Composition (Auto)</option>
+  <option>Rule of Thirds</option>
+  <option>Centered</option>
+  <option>Leading Lines</option>
+</select>
+
+<select id="format">
+  <option value="text">Text Prompt</option>
+  <option value="json">JSON Prompt</option>
+</select>
+
 </div>
 
 <button onclick="generate()">Generate</button>
 
-<div id="outputBox"></div>
+<div class="loader" id="loader">Generating...</div>
+
+</div>
+
+<!-- OUTPUT -->
+<div id="outputBox" class="output"></div>
+
 <button class="copyBtn" onclick="copyOutput()">Copy</button>
 
 </div>
 
 <script>
-function toggleMode(){
-  const m=document.getElementById("mode").value;
-  document.getElementById("proFields").style.display=
-    m==="pro"?"block":"none";
+
+/* FIX MODE BUG */
+window.onload = function(){
+  toggleMode();
 }
 
+function toggleMode(){
+  const m=document.getElementById("mode").value;
+  document.getElementById("proFields").style.display =
+    m==="pro"?"grid":"none";
+}
+
+/* GENERATE */
 async function generate(){
 
-  const idea=document.getElementById("idea").value;
-  const mode=document.getElementById("mode").value;
-  const format=document.getElementById("format")?.value || "text";
+  const loader = document.getElementById("loader");
+  const output = document.getElementById("outputBox");
+
+  loader.style.display="block";
+  output.textContent="";
 
   const payload={
-    prompt:idea,
-    mode:mode,
-    format:format
+    prompt:document.getElementById("idea").value,
+    mode:document.getElementById("mode").value,
+    format:document.getElementById("format")?.value || "text",
+    angle:document.getElementById("angle")?.value,
+    lighting:document.getElementById("lighting")?.value,
+    lens:document.getElementById("lens")?.value,
+    style:document.getElementById("style")?.value,
+    composition:document.getElementById("composition")?.value
   };
-
-  if(mode==="pro"){
-    payload.angle=document.getElementById("angle").value||"auto";
-    payload.lighting=document.getElementById("lighting").value||"auto";
-    payload.lens=document.getElementById("lens").value||"auto";
-    payload.style=document.getElementById("style").value||"auto";
-    payload.composition=document.getElementById("composition").value||"auto";
-  }
 
   const res=await fetch("https://lumo-ai-orhd.onrender.com/generate",{
     method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
+    headers:{ "Content-Type":"application/json" },
     body:JSON.stringify(payload)
   });
 
   const data=await res.json();
 
-  document.getElementById("outputBox").textContent=data.output;
+  loader.style.display="none";
+  output.textContent=data.output;
 }
 
+/* COPY */
 function copyOutput(){
   const text=document.getElementById("outputBox").textContent;
   navigator.clipboard.writeText(text);
 }
+
 </script>
 
 </body>
-
 </html>
