@@ -26,28 +26,190 @@ def generate():
 
         if fmt == "json":
             instruction = f"""
-Convert the idea into a structured AI image generation JSON.
+Convert the idea into a highly detailed structured AI image generation JSON.
 
 Return ONLY valid JSON with this schema:
 
 {{
-  "scene": "...",
+  "scene": {{
+    "title": "...",
+    "environment": {{
+      "type": "...",
+      "location_style": "...",
+      "architecture": "...",
+      "time_of_day": "...",
+      "weather": "...",
+      "atmosphere": "...",
+      "background_details": [
+        "...",
+        "..."
+      ]
+    }},
+    "mood": [
+      "...",
+      "..."
+    ],
+    "visual_theme": "...",
+    "cinematic_style": "..."
+  }},
+
   "subjects": [
     {{
       "type": "...",
-      "description": "...",
-      "position": "..."
+      "role": "...",
+
+      "description": {{
+        "gender": "...",
+        "age": "...",
+        "ethnicity": "...",
+        "facial_features": "...",
+        "expression": "...",
+        "pose": "...",
+        "body_language": "...",
+
+        "hair": {{
+          "style": "...",
+          "details": "..."
+        }},
+
+        "skin": {{
+          "texture": "...",
+          "detail_level": "..."
+        }}
+      }},
+
+      "outfit": {{
+        "type": "...",
+        "style": "...",
+
+        "primary_colors": [
+          "...",
+          "..."
+        ],
+
+        "materials": [
+          "...",
+          "..."
+        ],
+
+        "details": [
+          "...",
+          "..."
+        ]
+      }},
+
+      "accessories": [
+        "...",
+        "..."
+      ],
+
+      "positioning": {{
+        "placement": "...",
+        "interaction": "...",
+        "orientation": "..."
+      }}
     }}
   ],
-  "style": "...",
-  "lighting": "...",
-  "color_palette": ["...", "..."],
-  "camera": {{
-    "angle": "...",
-    "lens": "...",
-    "composition": "..."
+
+  "cinematography": {{
+    "camera": {{
+      "body_type": "full_frame_dslr",
+
+      "angle": "...",
+
+      "lens": {{
+        "type": "...",
+        "focal_length": "...",
+        "depth_of_field": "..."
+      }},
+
+      "focus": {{
+        "primary_subject": "...",
+        "sharpness": "..."
+      }},
+
+      "movement_style": "..."
+    }},
+
+    "composition": {{
+      "framing": "...",
+      "subject_balance": "...",
+      "perspective": "...",
+      "negative_space": "...",
+      "visual_flow": "..."
+    }}
   }},
-  "mood": "..."
+
+  "lighting": {{
+    "style": "...",
+    "source": "...",
+    "direction": "...",
+    "shadow_style": "...",
+    "highlight_behavior": "...",
+    "volumetrics": "...",
+    "color_temperature": "...",
+    "mood_effect": "..."
+  }},
+
+  "color_palette": {{
+    "primary": [
+      "...",
+      "..."
+    ],
+
+    "secondary": [
+      "...",
+      "..."
+    ],
+
+    "accent": [
+      "...",
+      "..."
+    ]
+  }},
+
+  "rendering": {{
+    "style": "...",
+    "realism_level": "...",
+    "texture_quality": "...",
+    "detail_level": "...",
+    "dynamic_range": "...",
+    "color_grading": "...",
+
+    "post_processing": [
+      "...",
+      "..."
+    ]
+  }},
+
+  "quality_control": {{
+    "resolution": "...",
+    "anatomy_accuracy": "...",
+    "hand_quality": "...",
+    "face_quality": "...",
+
+    "artifact_prevention": [
+      "...",
+      "..."
+    ]
+  }},
+
+  "negative_prompt": {{
+    "anatomy_errors": [
+      "...",
+      "..."
+    ],
+
+    "render_errors": [
+      "...",
+      "..."
+    ],
+
+    "style_issues": [
+      "...",
+      "..."
+    ]
+  }}
 }}
 
 Idea: {idea}
@@ -58,7 +220,8 @@ Lens: {lens}
 Style: {style}
 Composition: {composition}
 
-If any parameter is 'auto', choose the best.
+If any parameter is 'auto', choose the best cinematic option.
+
 Output ONLY JSON.
 """
         else:
@@ -97,7 +260,7 @@ Return concise English prompt.
     if "choices" in result:
         text = result["choices"][0]["message"]["content"]
 
-        #JSON 
+        # JSON
         if mode == "pro" and fmt == "json":
             import json as pyjson
             try:
@@ -115,4 +278,3 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
