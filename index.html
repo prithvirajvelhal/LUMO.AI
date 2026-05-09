@@ -139,8 +139,15 @@ button:hover{
   background:#0f172a;
   padding:15px;
   border-radius:12px;
-  max-height:250px;
+  max-height:450px;
   overflow:auto;
+
+  white-space:pre-wrap;
+  word-break:break-word;
+
+  font-family:Consolas, monospace;
+  font-size:14px;
+  line-height:1.5;
 }
 
 /* COPY */
@@ -246,7 +253,7 @@ button:hover{
 </div>
 
 <!-- OUTPUT -->
-<div id="outputBox" class="output"></div>
+<pre id="outputBox" class="output"></pre>
 
 <button class="copyBtn" onclick="copyOutput()">Copy</button>
 
